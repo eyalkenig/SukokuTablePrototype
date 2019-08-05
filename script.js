@@ -145,11 +145,17 @@ function removeCells() {
         document.getElementById('i' + rowI + colI).setAttribute('value', ''); //Writes on HTML
         document.getElementById('i' + rowI + colI).style.background = '#fff';
         document.getElementById('i' + rowI + colI).disabled = false;
-        document.getElementById('i' + rowI + colI).setAttribute('onkeypress', 'return fillInputOnkey(this,event,this.id)');
-        document.getElementById('i' + rowI + colI).setAttribute('onfocus', 'focusGuideLines(this.id);focusOnCell(this.id)');
-        document.getElementById('i' + rowI + colI).setAttribute('onblur', 'resetGuideLines();clearNotDisabled()');
-
-
+        document.getElementById('i' + rowI + colI).addEventListener('onkeypress', function(event) {
+            return fillInputOnkey(this,event,this.id);
+        })
+        document.getElementById('i' + rowI + colI).addEventListener('onfocus', function(event) {
+            focusGuideLines(this.id);
+            focusOnCell(this.id);
+        })
+        document.getElementById('i' + rowI + colI).addEventListener('onblur', function(event) {
+            resetGuideLines();
+            clearNotDisabled();
+        })
     }
 }
 //Generate a valid sudoku table
