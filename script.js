@@ -91,13 +91,6 @@ function resetNumbersToChooseFrom() {
     return [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
 
-//Generates random number from 1 to 9
-function random1_9(numbersToChooseFrom) {
-
-    let randomIndex = Math.floor((Math.random() * numbersToChooseFrom.length))
-    return randomIndex;
-}
-
 //Generates array between 0-80
 function generateCellsToChooseFrom() {
     var array = [];
@@ -107,10 +100,8 @@ function generateCellsToChooseFrom() {
     return array;
 }
 
-//Generates random number from 0-80
-function random0_80(cellsToChooseFrom) {
-    let randomIndex = Math.floor((Math.random() * cellsToChooseFrom.length))
-    return randomIndex;
+function getRandomNumber(max) {
+    return Math.floor((Math.random() * max));
 }
 
 //Generates empty sudoku with zeros.
@@ -137,7 +128,7 @@ function removeCells() {
     let cellsToChooseFrom = generateCellsToChooseFrom();
 
     for (let i = difficultyHide; i > 0; i--) {
-        let randomCellIndex = random0_80(cellsToChooseFrom);
+        let randomCellIndex = getRandomNumber(cellsToChooseFrom.length);
         let generatedCell = cellsToChooseFrom[randomCellIndex];
         cellsToChooseFrom.splice(randomCellIndex, 1);
         let rowI = rowIndex(generatedCell);
@@ -181,7 +172,7 @@ function generateSudokuArray() {
             numbersToChooseFrom = resetNumbersToChooseFrom(); //Resets the numbers to choose from to 1-9
         }
         while (cellFilled == 0) { //As long as cell did not fill.
-            randomIndex = random1_9(numbersToChooseFrom); //Generate random index out of the remaining numbers to choose from.
+            randomIndex = getRandomNumber(numbersToChooseFrom.length); //Generate random index out of the remaining numbers to choose from.
             generatedNumber = numbersToChooseFrom[randomIndex]; //Gets the number with the random index.
             /*debugger*/
             if (rowI == 0) { //If at row 0 dont make any validations.
