@@ -1,3 +1,13 @@
+const config = {
+    rows: 9,
+    columns: 9,
+    focusColor: '#c6de41'
+}
+
+function getBoardSize(config) {
+    return config.rows * config.columns;
+}
+
 /*HTML properties*/
 //input accept only 1-9 and if length equal to 1 replace value to pressed 1-9 
 
@@ -21,12 +31,12 @@ function fillInputOnkey(inputVal, event, ID) {
 //Empty array 81 values
 //Gives row index of the specific cell in the sudokuArray
 function rowIndex(cellNumber) {
-    return Math.floor(cellNumber / 9);
+    return Math.floor(cellNumber / config.rows);
 }
 
 //Gives col index of the specific cell in the sudokuArray
 function colIndex(cellNumber) {
-    return Math.floor(cellNumber % 9);
+    return Math.floor(cellNumber % config.columns);
 }
 
 //Gives box index of specific cell in the sudokuArray
@@ -36,8 +46,8 @@ function blockIndex(cellNumber) {
 
 //Checks if specific number can be placed inside a row
 function checkRow(number, rowIndex, sudokuArray) {
-    for (let i = 0; i < 9; i++) {
-        if (sudokuArray[rowIndex * 9 + i] == number) {
+    for (let i = 0; i < config.rows; i++) {
+        if (sudokuArray[rowIndex * config.rows + i] == number) {
             return false;
         }
     }
@@ -46,8 +56,8 @@ function checkRow(number, rowIndex, sudokuArray) {
 
 //Checks if specific number can be pleaced inside a column
 function checkColumn(number, colIndex, sudokuArray) {
-    for (let i = 0; i < 9; i++) {
-        if (sudokuArray[colIndex + i * 9] == number) {
+    for (let i = 0; i < config.columns; i++) {
+        if (sudokuArray[colIndex + i * config.columns] == number) {
             return false;
         }
     }
@@ -56,8 +66,8 @@ function checkColumn(number, colIndex, sudokuArray) {
 
 //Checks if specific number can be pleaced inside a block
 function checkBlock(number, blockIndex, sudokuArray) {
-    for (let i = 0; i < 9; i++) {
-        if (sudokuArray[Math.floor(blockIndex / 3) * 27 + (i % 3) + 9 * Math.floor(i / 3) + 3 * (blockIndex % 3)] == number) {
+    for (let i = 0; i < config.rows; i++) {
+        if (sudokuArray[Math.floor(blockIndex / 3) * 27 + (i % 3) + config.rows * Math.floor(i / 3) + 3 * (blockIndex % 3)] == number) {
             return false;
         }
     }
@@ -94,7 +104,7 @@ function resetNumbersToChooseFrom() {
 //Generates array between 0-80
 function generateCellsToChooseFrom() {
     var array = [];
-    for (let i = 0; i <= 80; i++) {
+    for (let i = 0; i < getBoardSize(config); i++) {
         array.push(i);
     }
     return array;
@@ -107,7 +117,7 @@ function getRandomNumber(max) {
 //Generates empty sudoku with zeros.
 function generateEmptySudokuArray() {
     var array = [];
-    for (let i = 0; i < 81; i++) {
+    for (let i = 0; i <= getBoardSize(config); i++) {
         array.push(0);
     }
     return array;
@@ -162,7 +172,8 @@ function generateSudokuArray() {
     let colI;
     let blockI;
     let randomIndex;
-    for (let cellIndex = 0; cellIndex < 81; cellIndex++) { //runs from 0 to 80 (81 numbers)
+    let totalIterationCount = 0;
+    for (let cellIndex = 0; cellIndex < getBoardSize(config); cellIndex++) { //runs from 0 to 80 (81 numbers)
         cellFilled = 0; //Set flag to 0
         iterationsCount = 0; //Reset iterations that failed to 0 after placing a number.
         rowI = rowIndex(cellIndex); //Check the row index given a cellIndex
@@ -246,8 +257,8 @@ function toggleHints() {
 }
 //Moves all over not disabled inputs and clear (used for focusOnCell + when cell is out of focus)
 function clearNotDisabled() {
-    for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
+    for (let row = 0; row < config.rows; row++) {
+        for (let col = 0; col < config.columns; col++) {
             disabledValue = document.getElementById('i' + row + col).getAttribute("disabled");
             if (disabledValue != '') {
                 document.getElementById('i' + row + col).style.background = '#fff';
@@ -270,8 +281,8 @@ function blockIndexDraw(cellNumber, rowI, colI) {
 
 //Reset GuideLines
 function resetGuideLines() {
-    for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
+    for (let row = 0; row < config.rows; row++) {
+        for (let col = 0; col < config.columns; col++) {
             document.getElementById('c' + row + col).style.background = '#fff';
         }
     }
@@ -294,34 +305,34 @@ function focusGuideLines(ID) {
 
 //Focus on row 
 function drawRowCells(rowIndex) {
-    for (let i = 0; i < 9; i++) {
-        document.getElementById('c' + rowIndex + i).style.background = '#c6de41';
+    for (let i = 0; i < config.rows; i++) {
+        document.getElementById('c' + rowIndex + i).style.background = config.focusColor;
     }
 }
 
 //Focus on column
 function drawColCells(colIndex) {
-    for (let i = 0; i < 9; i++) {
-        document.getElementById('c' + i + colIndex).style.background = '#c6de41';
+    for (let i = 0; i < config.columns; i++) {
+        document.getElementById('c' + i + colIndex).style.background = config.focusColor;
     }
 
 }
 
 //Focus on block
 function drawBlockCells(blockIndex) {
-    for (let i = 0; i < 9; i++) {
-        let cellIndex = Math.floor(blockIndex / 3) * 27 + (i % 3) + 9 * Math.floor(i / 3) + 3 * (blockIndex % 3);
+    for (let i = 0; i < config.rows; i++) {
+        let cellIndex = Math.floor(blockIndex / 3) * 27 + (i % 3) + config.rows * Math.floor(i / 3) + 3 * (blockIndex % 3);
         let rowI = rowIndex(cellIndex);
         let colI = colIndex(cellIndex);
-        document.getElementById('c' + rowI + colI).style.background = '#c6de41';
+        document.getElementById('c' + rowI + colI).style.background = config.focusColor;
     }
 }
 //////**********************************************SUDOKU VALIDATION****************************************************/
 //Function that takes values in sudoku table and push it into 0-80 array.
 function putSudokuInArray() {
     let checkedSudoku = [];
-    for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
+    for (let row = 0; row < config.rows; row++) {
+        for (let col = 0; col < config.columns; col++) {
             if (document.getElementById('i' + row + col).value != "") {
                 checkedSudoku.push(document.getElementById('i' + row + col).value);
             }
@@ -338,8 +349,8 @@ function putSudokuInArray() {
 function correctRow(row, sudokuArray) {
     let validArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let tempArray = [];
-    for (let i = 0; i < 9; i++) {
-        tempArray[i] = sudokuArray[row * 9 + i];
+    for (let i = 0; i < config.rows; i++) {
+        tempArray[i] = sudokuArray[row * config.rows + i];
     }
     tempArray.sort();
     return validArray.join() == tempArray.join();
@@ -349,8 +360,8 @@ function correctRow(row, sudokuArray) {
 function correctCol(col, sudokuArray) {
     let validArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let tempArray = [];
-    for (let i = 0; i < 9; i++) {
-        tempArray[i] = sudokuArray[col + i * 9];
+    for (let i = 0; i < config.rows; i++) {
+        tempArray[i] = sudokuArray[col + i * config.rows];
     }
     tempArray.sort();
     return tempArray.join() == validArray.join()
@@ -360,7 +371,7 @@ function correctCol(col, sudokuArray) {
 function correctBlock(block, sudokuArray) {
     let validArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let tempArray = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < config.rows; i++) {
         tempArray[i] = sudokuArray[Math.floor(block / 3) * 27 + i % 3 + 9 * Math.floor(i / 3) + 3 * (block % 3)];
     }
     tempArray.sort();
@@ -370,8 +381,8 @@ function correctBlock(block, sudokuArray) {
 //Checks if whole sudoku is solved
 function solvedSudokuCheck() {
     let checkedSudoku = putSudokuInArray();
-    if (checkedSudoku.length == 81) {
-        for (let i = 0; i < 9; i++) {
+    if (checkedSudoku.length == getBoardSize(config)) {
+        for (let i = 0; i < config.rows; i++) {
             if (!correctRow(i, checkedSudoku) || !correctCol(i, checkedSudoku) || !correctBlock(i, checkedSudoku)) {
                 document.getElementById('correctSpan').innerHTML = 'Sudoku is incorrect'
             } else {
