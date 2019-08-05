@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col sudokuContainer">
+                <table class="sudokuTable">
+                    <tr>
+                        <td id="c00" class="boldTop boldLeft"><input id="i00"></td>
+                        <td id="c01" class="boldTop"><input id="i01"></td>
+                        <td id="c02" class="boldTop boldRight"><input id="i02"></td>
+                        <td id="c03" class="boldTop"><input id="i03"></td>
+                        <td id="c04" class="boldTop"><input id="i04"></td>
+                        <td id="c05" class="boldTop boldRight"><input id="i05"></td>
+                        <td id="c06" class="boldTop"><input id="i06"></td>
+                        <td id="c07" class="boldTop"><input id="i07"></td>
+                        <td id="c08" class="boldTop boldRight"><input id="i08"></td>
+                    </tr>
+                    <tr>
+                        <td id="c10" class="boldLeft"><input id="i10"></td>
+                        <td id="c11" class=""><input id="i11"></td>
+                        <td id="c12" class="boldRight"><input id="i12"></td>
+                        <td id="c13" class=""><input id="i13"></td>
+                        <td id="c14" class=""><input id="i14"></td>
+                        <td id="c15" class="boldRight"><input id="i15"></td>
+                        <td id="c16" class=""><input id="i16"></td>
+                        <td id="c17" class=""><input id="i17"></td>
+                        <td id="c18" class="boldRight"><input id="i18"></td>
+                    </tr>
+                    <tr>
+                        <td id="c20" class="boldLeft"><input id="i20"></td>
+                        <td id="c21" class=""><input id="i21"></td>
+                        <td id="c22" class="boldRight"><input id="i22"></td>
+                        <td id="c23" class=""><input id="i23"></td>
+                        <td id="c24" class=""><input id="i24"></td>
+                        <td id="c25" class="boldRight"><input id="i25"></td>
+                        <td id="c26" class=""><input id="i26"></td>
+                        <td id="c27" class=""><input id="i27"></td>
+                        <td id="c28" class="boldRight"><input id="i28"></td>
+                    </tr>
+                    <tr>
+                        <td id="c30" class="boldTop boldLeft"><input id="i30"></td>
+                        <td id="c31" class="boldTop"><input id="i31"></td>
+                        <td id="c32" class="boldTop boldRight"><input id="i32"></td>
+                        <td id="c33" class="boldTop"><input id="i33"></td>
+                        <td id="c34" class="boldTop"><input id="i34"></td>
+                        <td id="c35" class="boldTop boldRight"><input id="i35"></td>
+                        <td id="c36" class="boldTop"><input id="i36"></td>
+                        <td id="c37" class="boldTop"><input id="i37"></td>
+                        <td id="c38" class="boldTop boldRight"><input id="i38"></td>
+                    </tr>
+                    <tr>
+                        <td id="c40" class="boldLeft"><input id="i40"></td>
+                        <td id="c41" class=""><input id="i41"></td>
+                        <td id="c42" class="boldRight"><input id="i42"></td>
+                        <td id="c43" class=""><input id="i43"></td>
+                        <td id="c44" class=""><input id="i44"></td>
+                        <td id="c45" class="boldRight"><input id="i45"></td>
+                        <td id="c46" class=""><input id="i46"></td>
+                        <td id="c47" class=""><input id="i47"></td>
+                        <td id="c48" class="boldRight"><input id="i48"></td>
+                    </tr>
+                    <tr>
+                        <td id="c50" class="boldLeft"><input id="i50"></td>
+                        <td id="c51" class=""><input id="i51"></td>
+                        <td id="c52" class="boldRight"><input id="i52"></td>
+                        <td id="c53" class=""><input id="i53"></td>
+                        <td id="c54" class=""><input id="i54"></td>
+                        <td id="c55" class="boldRight"><input id="i55"></td>
+                        <td id="c56" class=""><input id="i56"></td>
+                        <td id="c57" class=""><input id="i57"></td>
+                        <td id="c58" class="boldRight"><input id="i58"></td>
+                    </tr>
+                    <tr>
+                        <td id="c60" class="boldTop boldLeft"><input id="i60"></td>
+                        <td id="c61" class="boldTop"><input id="i61"></td>
+                        <td id="c62" class="boldTop boldRight"><input id="i62"></td>
+                        <td id="c63" class="boldTop"><input id="i63"></td>
+                        <td id="c64" class="boldTop"><input id="i64"></td>
+                        <td id="c65" class="boldTop boldRight"><input id="i65"></td>
+                        <td id="c66" class="boldTop"><input id="i66"></td>
+                        <td id="c67" class="boldTop"><input id="i67"></td>
+                        <td id="c68" class="boldTop boldRight"><input id="i68"></td>
+                    </tr>
+                    <tr>
+                        <td id="c70" class="boldLeft"><input id="i70"></td>
+                        <td id="c71" class=""><input id="i71"></td>
+                        <td id="c72" class="boldRight"><input id="i72"></td>
+                        <td id="c73" class=""><input id="i73"></td>
+                        <td id="c74" class=""><input id="i74"></td>
+                        <td id="c75" class="boldRight"><input id="i75"></td>
+                        <td id="c76" class=""><input id="i76"></td>
+                        <td id="c77" class=""><input id="i77"></td>
+                        <td id="c78" class="boldRight"><input id="i78"></td>
+                    </tr>
+                    <tr>
+                        <td id="c80" class="boldLeft boldBottum"><input id="i80"></td>
+                        <td id="c81" class="boldBottum"><input id="i81"></td>
+                        <td id="c82" class="boldBottum boldRight"><input id="i82"></td>
+                        <td id="c83" class="boldBottum"><input id="i83"></td>
+                        <td id="c84" class="boldBottum"><input id="i84"></td>
+                        <td id="c85" class="boldBottum boldRight"><input id="i85"></td>
+                        <td id="c86" class="boldBottum"><input id="i86"></td>
+                        <td id="c87" class="boldBottum"><input id="i87"></td>
+                        <td id="c88" class="boldBottum boldRight"><input id="i88"></td>
+                    </tr>
+                </table>
+                <button onclick="generateSudokuArray()">Generate board</button>
+                <button onclick="solvedSudokuCheck()">Valid</button><br>
+                <input id="hintsRadioInput" onclick="toggleHints()" type="radio" checked><span id="hintSpan"> Hints are : On</span>
+                <p id="correctSpan"></p>
+                <p>Choose difficulty</p>
+                <button id="easyDiffBtn" onclick="updateDifficulty(20);generateSudokuArray()" style="background-color: blue">Easy - 20 Cells</button>
+                <button id="mediumDiffBtn" onclick="updateDifficulty(40);generateSudokuArray()">Medium - 40 Cells</button>
+                <button id="hardDiffBtn" onclick="updateDifficulty(60);generateSudokuArray()">Hard - 60 Cells</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
