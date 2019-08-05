@@ -142,17 +142,18 @@ function removeCells() {
         cellsToChooseFrom.splice(randomCellIndex, 1);
         let rowI = rowIndex(generatedCell);
         let colI = colIndex(generatedCell);
-        document.getElementById('i' + rowI + colI).setAttribute('value', ''); //Writes on HTML
-        document.getElementById('i' + rowI + colI).style.background = '#fff';
-        document.getElementById('i' + rowI + colI).disabled = false;
-        document.getElementById('i' + rowI + colI).addEventListener('onkeypress', function(event) {
+        const cellId = 'i' + rowI + colI;
+        document.getElementById(cellId).setAttribute('value', ''); //Writes on HTML
+        document.getElementById(cellId).style.background = '#fff';
+        document.getElementById(cellId).disabled = false;
+        document.getElementById(cellId).addEventListener('onkeypress', function(event) {
             return fillInputOnkey(this,event,this.id);
         })
-        document.getElementById('i' + rowI + colI).addEventListener('onfocus', function(event) {
+        document.getElementById(cellId).addEventListener('onfocus', function(event) {
             focusGuideLines(this.id);
             focusOnCell(this.id);
         })
-        document.getElementById('i' + rowI + colI).addEventListener('onblur', function(event) {
+        document.getElementById(cellId).addEventListener('onblur', function(event) {
             resetGuideLines();
             clearNotDisabled();
         })
