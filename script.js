@@ -200,6 +200,7 @@ function generateSudokuArray() {
             numbersToChooseFrom = resetNumbersToChooseFrom(); //Resets the numbers to choose from to 1-9
         }
         while (cellFilled == 0) { //As long as cell did not fill.
+            totalIterationCount++;
             randomIndex = getRandomNumber(numbersToChooseFrom.length); //Generate random index out of the remaining numbers to choose from.
             generatedNumber = numbersToChooseFrom[randomIndex]; //Gets the number with the random index.
             /*debugger*/
@@ -213,6 +214,9 @@ function generateSudokuArray() {
                 cellFilled = 1; //Flag to 1 in order to get out of the while loop.
                 numbersToChooseFrom.splice(randomIndex, 1); //Removes the placed number from the numbers to choose from.
                 placeTheNumber(rowI, colI, generatedNumber); //placing the number and disable
+            } else if (totalIterationCount > 10000) {
+                console.log('couldnt make it in 10000 tries');
+                return;
             } else if (iterationsCount > 50) { //If tried to place a number in cell more then 50 times
                 if (rowI > 0 && rowI <= 3) { //Delete 1 row if row is between 1 to 3 (row 0 dont need to be deleted).
                     sudokuArray = deleteRow(colI, cellIndex, sudokuArray); //Deletes the row values
