@@ -132,14 +132,14 @@ function getCellId(rowId, columnId) {
 //placing the number and disable
 function placeTheNumber(rowI, colI, generatedNumber) {
     const cellInputId = getCellInputId(rowI, colI);
-    document.getElementById(cellInputId).setAttribute('value', generatedNumber); //Writes on HTML
-    document.getElementById(cellInputId).style.background = '';
-    document.getElementById(cellInputId).disabled = true;
-    document.getElementById(cellInputId).setAttribute('type', 'number');
+    const cellInputElement = document.getElementById(cellInputId);
+    cellInputElement.setAttribute('value', generatedNumber); //Writes on HTML
+    cellInputElement.style.background = '';
+    cellInputElement.disabled = true;
+    cellInputElement.setAttribute('type', 'number');
 }
 
 let difficultyHide = 20;
-
 //Removes random cells by difficulty (20,40,60) (activated after sudoku filled)
 function removeCells() {
     let cellsToChooseFrom = generateCellsToChooseFrom();
@@ -151,17 +151,18 @@ function removeCells() {
         let rowI = rowIndex(generatedCell);
         let colI = colIndex(generatedCell);
         const cellInputId = getCellInputId(rowI, colI);
-        document.getElementById(cellInputId).setAttribute('value', ''); //Writes on HTML
-        document.getElementById(cellInputId).style.background = '#fff';
-        document.getElementById(cellInputId).disabled = false;
-        document.getElementById(cellInputId).addEventListener('onkeypress', function(event) {
+        const cellInputElement = document.getElementById(cellInputId);
+        cellInputElement.setAttribute('value', ''); //Writes on HTML
+        cellInputElement.style.background = '#fff';
+        cellInputElement.disabled = false;
+        cellInputElement.addEventListener('onkeypress', function(event) {
             return fillInputOnkey(this,event,this.id);
         })
-        document.getElementById(cellInputId).addEventListener('onfocus', function(event) {
+        cellInputElement.addEventListener('onfocus', function(event) {
             focusGuideLines(this.id);
             focusOnCell(this.id);
         })
-        document.getElementById(cellInputId).addEventListener('onblur', function(event) {
+        cellInputElement.addEventListener('onblur', function(event) {
             resetGuideLines();
             clearNotDisabled();
         })
