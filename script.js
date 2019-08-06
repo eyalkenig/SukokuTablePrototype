@@ -123,12 +123,19 @@ function generateEmptySudokuArray() {
     return array;
 }
 
+function getCellInputId(rowId, columnId) {
+    return 'i' + rowId + columnId;
+}
+function getCellId(rowId, columnId) {
+    return 'c' + rowId + columnId;
+}
 //placing the number and disable
 function placeTheNumber(rowI, colI, generatedNumber) {
-    document.getElementById('i' + rowI + colI).setAttribute('value', generatedNumber); //Writes on HTML
-    document.getElementById('i' + rowI + colI).style.background = '';
-    document.getElementById('i' + rowI + colI).disabled = true;
-    document.getElementById('i' + rowI + colI).setAttribute('type', 'number');
+    const cellInputId = getCellInputId(rowI, colI);
+    document.getElementById(cellInputId).setAttribute('value', generatedNumber); //Writes on HTML
+    document.getElementById(cellInputId).style.background = '';
+    document.getElementById(cellInputId).disabled = true;
+    document.getElementById(cellInputId).setAttribute('type', 'number');
 }
 
 let difficultyHide = 20;
@@ -143,18 +150,18 @@ function removeCells() {
         cellsToChooseFrom.splice(randomCellIndex, 1);
         let rowI = rowIndex(generatedCell);
         let colI = colIndex(generatedCell);
-        const cellId = 'i' + rowI + colI;
-        document.getElementById(cellId).setAttribute('value', ''); //Writes on HTML
-        document.getElementById(cellId).style.background = '#fff';
-        document.getElementById(cellId).disabled = false;
-        document.getElementById(cellId).addEventListener('onkeypress', function(event) {
+        const cellInputId = getCellInputId(rowI, colI);
+        document.getElementById(cellInputId).setAttribute('value', ''); //Writes on HTML
+        document.getElementById(cellInputId).style.background = '#fff';
+        document.getElementById(cellInputId).disabled = false;
+        document.getElementById(cellInputId).addEventListener('onkeypress', function(event) {
             return fillInputOnkey(this,event,this.id);
         })
-        document.getElementById(cellId).addEventListener('onfocus', function(event) {
+        document.getElementById(cellInputId).addEventListener('onfocus', function(event) {
             focusGuideLines(this.id);
             focusOnCell(this.id);
         })
-        document.getElementById(cellId).addEventListener('onblur', function(event) {
+        document.getElementById(cellInputId).addEventListener('onblur', function(event) {
             resetGuideLines();
             clearNotDisabled();
         })
@@ -259,9 +266,10 @@ function toggleHints() {
 function clearNotDisabled() {
     for (let row = 0; row < config.rows; row++) {
         for (let col = 0; col < config.columns; col++) {
-            disabledValue = document.getElementById('i' + row + col).getAttribute("disabled");
+            const cellInputId = getCellInputId(row, col);
+            disabledValue = document.getElementById(cellInputId).getAttribute("disabled");
             if (disabledValue != '') {
-                document.getElementById('i' + row + col).style.background = '#fff';
+                document.getElementById(cellInputId).style.background = '#fff';
             }
         }
     }
@@ -283,7 +291,8 @@ function blockIndexDraw(cellNumber, rowI, colI) {
 function resetGuideLines() {
     for (let row = 0; row < config.rows; row++) {
         for (let col = 0; col < config.columns; col++) {
-            document.getElementById('c' + row + col).style.background = '#fff';
+            const cellId = getCellId(row, col);
+            document.getElementById(cellId).style.background = '#fff';
         }
     }
 }
@@ -306,14 +315,16 @@ function focusGuideLines(ID) {
 //Focus on row 
 function drawRowCells(rowIndex) {
     for (let i = 0; i < config.rows; i++) {
-        document.getElementById('c' + rowIndex + i).style.background = config.focusColor;
+        const cellId = getCellId(rowIndex, i);
+        document.getElementById(cellId).style.background = config.focusColor;
     }
 }
 
 //Focus on column
 function drawColCells(colIndex) {
     for (let i = 0; i < config.columns; i++) {
-        document.getElementById('c' + i + colIndex).style.background = config.focusColor;
+        const cellId = getCellId(i, colIndex);
+        document.getElementById(cellId).style.background = config.focusColor;
     }
 
 }
@@ -324,7 +335,8 @@ function drawBlockCells(blockIndex) {
         let cellIndex = Math.floor(blockIndex / 3) * 27 + (i % 3) + config.rows * Math.floor(i / 3) + 3 * (blockIndex % 3);
         let rowI = rowIndex(cellIndex);
         let colI = colIndex(cellIndex);
-        document.getElementById('c' + rowI + colI).style.background = config.focusColor;
+        const cellId = getCellId(rowI, colI);
+        document.getElementById(cellId).style.background = config.focusColor;
     }
 }
 //////**********************************************SUDOKU VALIDATION****************************************************/
@@ -333,8 +345,9 @@ function putSudokuInArray() {
     let checkedSudoku = [];
     for (let row = 0; row < config.rows; row++) {
         for (let col = 0; col < config.columns; col++) {
-            if (document.getElementById('i' + row + col).value != "") {
-                checkedSudoku.push(document.getElementById('i' + row + col).value);
+            const cellInputId = getCellInputId(row, col);
+            if (document.getElementById(cellInputId).value != "") {
+                checkedSudoku.push(document.getElementById(cellInputId).value);
             }
 
         }
