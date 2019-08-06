@@ -8,9 +8,18 @@ function getBoardSize(config) {
     return config.rows * config.columns;
 }
 
+function setBackground(selector, background) {
+    const element = document.getElementById(selector);
+    element.style.background = background;
+}
+
+function setBackgroundColor(selector, color) {
+    const element = document.getElementById(selector);
+    element.style.backgroundColor = color;
+}
+
 /*HTML properties*/
 //input accept only 1-9 and if length equal to 1 replace value to pressed 1-9 
-
 function fillInputOnkey(inputVal, event, ID) {
     let clickedvalue = String.fromCharCode(event.charCode);
     console.log(clickedvalue);
@@ -133,8 +142,8 @@ function getCellId(rowId, columnId) {
 function placeTheNumber(rowI, colI, generatedNumber) {
     const cellInputId = getCellInputId(rowI, colI);
     const cellInputElement = document.getElementById(cellInputId);
+    setBackground(cellInputId, '');
     cellInputElement.setAttribute('value', generatedNumber); //Writes on HTML
-    cellInputElement.style.background = '';
     cellInputElement.disabled = true;
     cellInputElement.setAttribute('type', 'number');
 }
@@ -152,8 +161,8 @@ function removeCells() {
         let colI = colIndex(generatedCell);
         const cellInputId = getCellInputId(rowI, colI);
         const cellInputElement = document.getElementById(cellInputId);
+        setBackground(cellInputId, '#fff')
         cellInputElement.setAttribute('value', ''); //Writes on HTML
-        cellInputElement.style.background = '#fff';
         cellInputElement.disabled = false;
         cellInputElement.addEventListener('onkeypress', function(event) {
             return fillInputOnkey(this,event,this.id);
@@ -232,24 +241,13 @@ generateSudokuArray();
 /***************************************************SUDOKU UX**************************************************************/
 //Choose difficulty (update values and bgc)
 function updateDifficulty(numberToHide) {
-    difficultyHide = numberToHide;
-    if (numberToHide == 20) {
-        document.getElementById('mediumDiffBtn').style.backgroundColor = '';
-        document.getElementById('hardDiffBtn').style.backgroundColor = '';
-        document.getElementById('easyDiffBtn').style.backgroundColor = 'blue';
-    } else if (numberToHide == 40) {
-        document.getElementById('easyDiffBtn').style.backgroundColor = '';
-        document.getElementById('hardDiffBtn').style.backgroundColor = '';
-        document.getElementById('mediumDiffBtn').style.backgroundColor = 'blue';
-    } else {
-        document.getElementById('easyDiffBtn').style.backgroundColor = '';
-        document.getElementById('mediumDiffBtn').style.backgroundColor = '';
-        document.getElementById('hardDiffBtn').style.backgroundColor = 'blue';
-    }
+    const selectedColor = 'blue';
+    setBackgroundColor('easyDiffBtn', numberToHide == 20 ? selectedColor : '');
+    setBackgroundColor('mediumDiffBtn', numberToHide == 40 ? selectedColor : '');
+    setBackgroundColor('hardDiffBtn', numberToHide != 20 && numberToHide != 40 ? selectedColor : '');
 }
 //Toggle between hint state
 let hintsState = true;
-
 function toggleHints() {
     if (hintsState == true) {
         document.getElementById('hintSpan').innerHTML = ' Hints are : Off'
@@ -270,7 +268,7 @@ function clearNotDisabled() {
             const cellInputId = getCellInputId(row, col);
             disabledValue = document.getElementById(cellInputId).getAttribute("disabled");
             if (disabledValue != '') {
-                document.getElementById(cellInputId).style.background = '#fff';
+                setBackground(cellInputId, '#fff');
             }
         }
     }
@@ -279,7 +277,7 @@ function clearNotDisabled() {
 //Focus on specific cell (change color of specific color and change alll undisabled cells bgc to white)
 function focusOnCell(ID) {
     clearNotDisabled();
-    document.getElementById(ID).style.background = '#ADD8E6';
+    setBackground(ID, '#ADD8E6');
 }
 
 
@@ -293,7 +291,7 @@ function resetGuideLines() {
     for (let row = 0; row < config.rows; row++) {
         for (let col = 0; col < config.columns; col++) {
             const cellId = getCellId(row, col);
-            document.getElementById(cellId).style.background = '#fff';
+            setBackground(cellId, '#fff');
         }
     }
 }
@@ -317,7 +315,7 @@ function focusGuideLines(ID) {
 function drawRowCells(rowIndex) {
     for (let i = 0; i < config.rows; i++) {
         const cellId = getCellId(rowIndex, i);
-        document.getElementById(cellId).style.background = config.focusColor;
+        setBackground(cellId, config.focusColor);
     }
 }
 
@@ -325,7 +323,7 @@ function drawRowCells(rowIndex) {
 function drawColCells(colIndex) {
     for (let i = 0; i < config.columns; i++) {
         const cellId = getCellId(i, colIndex);
-        document.getElementById(cellId).style.background = config.focusColor;
+        setBackground(cellId, config.focusColor);
     }
 
 }
@@ -337,7 +335,7 @@ function drawBlockCells(blockIndex) {
         let rowI = rowIndex(cellIndex);
         let colI = colIndex(cellIndex);
         const cellId = getCellId(rowI, colI);
-        document.getElementById(cellId).style.background = config.focusColor;
+        setBackground(cellId, config.focusColor);
     }
 }
 //////**********************************************SUDOKU VALIDATION****************************************************/
